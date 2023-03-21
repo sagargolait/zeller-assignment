@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import { API, graphqlOperation } from 'aws-amplify';
-import { ListZellerCustomers } from './graphql/queries';
-import { Amplify } from 'aws-amplify';
-import awsconfig from './aws-exports';
-import { camelize } from './utils/util';
+import React, { useEffect, useState } from "react";
+import { API, graphqlOperation } from "aws-amplify";
+import { ListZellerCustomers } from "./graphql/queries";
+import { Amplify } from "aws-amplify";
+import awsconfig from "./aws-exports";
+import { camelize } from "./utils/util";
 
 Amplify.configure(awsconfig);
 
@@ -21,8 +21,8 @@ export type GetCustomersQuery = {
 };
 
 const CustomerList: React.FC = () => {
-  const [selectedRole, setSelectedRole] = useState<'Admin' | 'Manager'>(
-    'Admin'
+  const [selectedRole, setSelectedRole] = useState<"Admin" | "Manager">(
+    "Admin"
   );
   const [customers, setCustomers]: any = useState([]);
 
@@ -45,7 +45,7 @@ const CustomerList: React.FC = () => {
   }, [selectedRole]);
 
   const handleRoleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSelectedRole(event.target.value as 'Admin' | 'Manager');
+    setSelectedRole(event.target.value as "Admin" | "Manager");
   };
 
   const filteredCustomers = customers.filter(
@@ -60,7 +60,7 @@ const CustomerList: React.FC = () => {
         <div className="flex flex-col">
           <label
             style={
-              selectedRole === 'Admin' ? { backgroundColor: 'aliceblue' } : {}
+              selectedRole === "Admin" ? { backgroundColor: "aliceblue" } : {}
             }
             className="flex items-center p-4 rounded-lg"
           >
@@ -69,14 +69,14 @@ const CustomerList: React.FC = () => {
               type="radio"
               name="role"
               value="Admin"
-              checked={selectedRole === 'Admin'}
+              checked={selectedRole === "Admin"}
               onChange={handleRoleChange}
             />
             Admin
           </label>
           <label
             style={
-              selectedRole === 'Manager' ? { backgroundColor: 'aliceblue' } : {}
+              selectedRole === "Manager" ? { backgroundColor: "aliceblue" } : {}
             }
             className="flex items-center p-4 rounded-lg"
           >
@@ -85,7 +85,7 @@ const CustomerList: React.FC = () => {
               type="radio"
               name="role"
               value="Manager"
-              checked={selectedRole === 'Manager'}
+              checked={selectedRole === "Manager"}
               onChange={handleRoleChange}
             />
             Manager
@@ -97,8 +97,8 @@ const CustomerList: React.FC = () => {
         <h1 className="text-4xl">{`${camelize(selectedRole)} Users`}</h1>
         <div className="mt-2 flex flex-col">
           <ul>
-            {filteredCustomers.map((customers: any) => (
-              <li className="flex gap-4 my-2 items-center text-medium">
+            {filteredCustomers.map((customers: any, id: any) => (
+              <li className=" customer-item flex gap-4 my-2 items-center text-medium">
                 <span className="px-6 py-4 rounded-md bg-sky-50 outline-none text-sky-600">
                   {customers.name.charAt(0)}
                 </span>
